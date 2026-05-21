@@ -12,6 +12,8 @@ import CartPage from "./Components/CartPage.jsx";
 import WishList from "./Components/WishList.jsx";
 import AdminPage from "./Components/AdminPage.jsx";
 import ProductManagement from "./Components/ProductManagement.jsx";
+import UserList from "./Components/UserList.jsx";
+import UserProfile from "./Components/UserProfile.jsx";
 
 function App() {
   const [user, setUser] = useState([]);
@@ -23,17 +25,22 @@ function App() {
 
   const [isLoggedIn,setIsLoggedIn]=useState(false)
 
-  console.log(productsData);
+  const[isBanned,setIsBanned]=useState(false)
 
-  const val = { user, setUser,cart,setCart , wishList,setWishlist,pdata, setPdata,isLoggedIn,setIsLoggedIn};
+  console.log(productsData);
+  console.log("ban fro app",isBanned);
+  
+
+  const val = { user, setUser,cart,setCart , wishList,setWishlist,pdata, setPdata,isLoggedIn,setIsLoggedIn, isBanned,setIsBanned};
   return (
     <div>
       <myContext.Provider value={val}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Register />} />
+            <Route path="/" element={<Register  />} />
             <Route path="/login" element={<Login />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/profile" element={<UserProfile />} />
             <Route path="/products" element={<Products products={pdata} />} />
             <Route
               path="/Products/:id"
@@ -42,6 +49,7 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/adminhome" element={<AdminPage />} />
+            <Route path="/userlist" element={<UserList />} />
             <Route path="/adminproduct" element={<ProductManagement products={pdata}  />} />
           </Routes>
         </BrowserRouter>

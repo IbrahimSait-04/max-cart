@@ -8,15 +8,21 @@ import "../Style/CreateProduct.css"
 
 export default function ProductManagement({ products }) {
   const [editIndex, setEditIndex] = useState(-1);
-  const { pdata, setPdata } = useContext(myContext);
+  const { pdata, setPdata, isLoggedIn,setIsLoggedIn} = useContext(myContext);
   const nav = useNavigate();
 
   function handleRemove(id) {
+    if(!isLoggedIn){
+      return alert("Login to continue")
+    }
     const updatedProducts = pdata.filter((item) => item.id !== id);
     setPdata(updatedProducts);
   }
 
   function handleEdit(id) {
+     if(!isLoggedIn){
+      return alert("Login to continue")
+    }
     const product = pdata.find((item) => item.id === id);
 
     setName(product.name);

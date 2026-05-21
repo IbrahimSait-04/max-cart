@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import AdminNav from "./AdminNav";
+import { myContext } from "../Context";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminPage() {
+
+  const nav = useNavigate();
+
+  const{user, setUser , isLoggedIn,setIsLoggedIn}=useContext(myContext)
+
+  function handleprod(){
+    if(!isLoggedIn){
+      return alert("Please Login ")
+    }
+    nav("/adminproduct")
+  }
+
+  console.log(user);
+
+  console.log("Login Status:", isLoggedIn);
+  
+  
   return (
     <div className="min-h-screen bg-gray-800 text-gray-400">
       <AdminNav />
@@ -11,9 +30,7 @@ export default function AdminPage() {
         </h1>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <a className="no-underline text-white text-2xl" href="/adminproduct">
-          Product Management
-        </a>
+        <button onClick={handleprod} className='mt-10 bg-cyan-500 hover:bg-cyan-600 transition duration-300 px-8 py-3 rounded-xl text-lg font-semibold shadow-lg text-white'>Product Management</button>
       </div>
     </div>
   );

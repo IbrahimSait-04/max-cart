@@ -6,7 +6,7 @@ import Logo from "../assets/Max-Cart-Logo.png";
 export default function Login() {
   const nav = useNavigate();
 
-  const { user, setUser,isLoggedIn,setIsLoggedIn } = useContext(myContext);
+  const { user, setUser,isLoggedIn,setIsLoggedIn,isBanned,setIsBanned } = useContext(myContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,11 +14,17 @@ export default function Login() {
   const adminEmail = "admin@gmail.com";
   const adminPass = "admin";
 
+
+  console.log("bann",isBanned);
+  
   function handleLogin() {
     if (!email || !password) {
       return alert("Please Fill All Fields");
     }
     if (email === adminEmail && password === adminPass) {
+      alert("Login Successfull");
+       setIsLoggedIn(true)
+
       nav("/adminhome");
       return;
     }
@@ -26,7 +32,9 @@ export default function Login() {
     const loggedUser = user.find(
       (item) => item.email === email && item.password === password,
     );
-    if (loggedUser) {
+
+    
+    if (loggedUser && !isBanned) {
       alert("LogIn Successfull");
       setIsLoggedIn(true)
       nav("/home");
